@@ -45,6 +45,8 @@ namespace hexdump
 
           template<typename Container>
           void hexdump(const Container& view, const std::size_t width = 16); 
+
+          void prompt(int argc, char** argv);
 }
 
 template<typename Container>

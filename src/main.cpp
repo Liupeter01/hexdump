@@ -1,8 +1,7 @@
 #include<random>
-#include<fstream>
 #include<hexdump/hexdump.hpp>
 
-int main() 
+int main(int argc, char **argv) 
 {
           //std::string s = "hello, world!\n";
           //std::random_device rd;
@@ -31,18 +30,18 @@ int main()
           //}
           //hexdump::hexdump(arr);
 
-          std::string path = "../hamlet.txt";
-          std::ifstream ifs(path);
-          if (!ifs.good()) {
-                    std::cerr << std::strerror(errno) << ": " << path << '\n';
-                    return 1;
-          }
-          hexdump::hexdump(
-                    std::string{ 
-                              std::istreambuf_iterator<char>(ifs) ,  
-                              std::istreambuf_iterator<char>() 
-                    } 
-          );
-          ifs.close();
+          //std::string path = "../hamlet.txt";
+          //std::ifstream ifs(path);
+          //if (!ifs.good()) {
+          //          std::cerr << std::strerror(errno) << ": " << path << '\n';
+          //          return 1;
+          //}
+          //hexdump::hexdump(
+          //          std::string{ 
+          //                    std::istreambuf_iterator<char>(ifs) ,  
+          //                    std::istreambuf_iterator<char>() 
+          //          } 
+          //);
+          //ifs.close();
           return 0;
 }
