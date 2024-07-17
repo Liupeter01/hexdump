@@ -6,17 +6,50 @@
 #include<string>
 #include<string_view>
 #include<iomanip>   //set iostream output
+#include<type_traits>
 #include<range/v3/view/chunk.hpp>
 
 namespace hexdump 
 {
+          template<class, class = void>
+          struct has_iterator_member 
+                    : std::false_type {};
+
+          template<typename Container>
+          struct has_iterator_member<Container,
+                    std::void_t<decltype(std::declval<std::decay_t<Container>>().begin()),
+                                       decltype(std::declval<std::decay_t<Container>>().end())>>
+                    : std::true_type {};
+
+          template<class, class = void>
+          struct has_trivial_pointer
+                    : std::false_type {};
+
+          template<typename _Ty>
+          struct has_trivial_pointer< _Ty, std::void_t<decltype(std::declval<std::decay_t<_Ty>>()[0])>> : std::true_type  {
+                    using value_type = decltype(std::declval<std::decay_t<_Ty>>()[0]);
+          };
+
+          template<typename _Ty, typename = void>
+          struct value_type_traits;
+
+          template<typename _Ty>
+          struct value_type_traits<_Ty, typename std::enable_if<has_iterator_member<_Ty>::value, void>::type> {
+                    using value_type = typename _Ty::value_type;
+          };
+
+          template<typename _Ty>
+          struct value_type_traits <_Ty, typename std::enable_if<!has_iterator_member<_Ty>::value, void>::type> {
+                    using value_type = std::decay_t<typename has_trivial_pointer< _Ty>::value_type>;
+          };
+
           template<typename Container>
           void hexdump(const Container& view, const std::size_t width = 16); 
 }
 
 template<typename Container>
 void hexdump::hexdump(const Container& view, const std::size_t width){
-          using value_type = typename Container::value_type;
+          using value_type = typename value_type_traits<Container>::value_type;
 
           /*using ranges-v3 library! 8 characters are as a block*/
           std::size_t address{};
@@ -57,8 +90,9 @@ void hexdump::hexdump(const Container& view, const std::size_t width){
                     }
                     std::cout << '\n';
 
-                    address += chunks.size();
+                    address += chunks.size() * sizeof(value_type);
           }
+          std::cout << '\n';
 }
 
 #endif // !_HEXDUMP_HPP

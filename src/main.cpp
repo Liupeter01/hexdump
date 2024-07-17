@@ -20,4 +20,13 @@ int main()
                     s.push_back(uid(mt));
           }
           hexdump::hexdump(s);
+
+          //int arr[1000]{};
+          //std::random_device rd;
+          //std::mt19937 mt(rd());
+          //std::uniform_int_distribution<int> uidi(INT_MIN, INT_MAX);
+          //for (int i = 0; i < 1000; ++i) {
+          //          arr[i] = uidi(mt);
+          //}
+          //hexdump::hexdump(arr);
 }
