@@ -31,17 +31,18 @@ int main(int argc, char **argv)
           //hexdump::hexdump(arr);
 
           //std::string path = "../hamlet.txt";
-          //std::ifstream ifs(path);
-          //if (!ifs.good()) {
-          //          std::cerr << std::strerror(errno) << ": " << path << '\n';
-          //          return 1;
-          //}
-          //hexdump::hexdump(
-          //          std::string{ 
-          //                    std::istreambuf_iterator<char>(ifs) ,  
-          //                    std::istreambuf_iterator<char>() 
-          //          } 
-          //);
-          //ifs.close();
+          std::string path = "../HelloWorld.class";
+          std::ifstream ifs(path);
+          if (!ifs.good()) {
+                    //std::cerr << std::strerror(errno) << ": " << path << '\n';
+                    return 1;
+          }
+          hexdump::hexdump(
+                    std::string{ 
+                              std::istreambuf_iterator<char>(ifs) ,  
+                              std::istreambuf_iterator<char>() 
+                    } 
+          );
+          ifs.close();
           return 0;
 }

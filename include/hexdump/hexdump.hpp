@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cctype>
 #include<string>
+#include<fstream>
 #include<string_view>
 #include<iomanip>   //set iostream output
 #include<type_traits>

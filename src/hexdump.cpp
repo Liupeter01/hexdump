@@ -1,4 +1,3 @@
-#include<fstream>
 #include<hexdump/hexdump.hpp>
 #include<cxxopts/cxxopts.hpp>
 
@@ -29,7 +28,7 @@ void prompt(int argc, char** argv)
           else {
                     std::ifstream ifs(path);
                     if (!ifs.good()) {
-                              std::cerr << std::strerror(errno) << ": " << path << '\n';
+                              //std::cerr << std::strerror(errno) << ": " << path << '\n';
                               return ;
                     }
                     hexdump::hexdump(
